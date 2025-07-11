@@ -10,7 +10,6 @@ const regex = /^[a-zA-Z0-9]([\w.-]*[a-zA-Z0-9])?@[a-zA-Z0-9.-]+\.(com|net|org|ed
 const jwt = require("jsonwebtoken");
 const JWT_KEY = "walkinonDAbeach";
 module.exports = verifyToken;
-require('dotenv').config();
 
 
 app.use(cors());
