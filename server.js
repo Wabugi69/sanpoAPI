@@ -207,11 +207,9 @@ console.log("Sending response:", {
       points: user.points
     });
 
-    
-
-
   } catch (err) {
     console.error("DB error:", err);
+    console.error("Stack:", err.stack);
     res.status(500).json({ error: "サーバーエラーまたはデータベースエラー" });
   }
 });
