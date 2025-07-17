@@ -186,6 +186,9 @@ app.post("/register", async (req, res) => {
 
     const user = await query("SELECT id, username FROM users WHERE email = ?", [email]);
 
+    const token = jwt.sign(
+        {id: user.id, email: user.email}, JWT_KEY
+      );
       res.status(201).json({
       message: "ユーザー登録できました",
       token: token,
