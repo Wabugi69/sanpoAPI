@@ -167,15 +167,18 @@ app.post("/register", async (req, res) => {
     .status(400)
     .json({ error: "メールアドレスの形式は正しくありません"});
   }
+  console.log("1");
 
   try {
     const users = await query("SELECT * FROM users WHERE email = ?", [email]);//メールが既に登録していないのを確認する
+    console.log("2");
 
     if (users.length > 0) {
       return res
         .status(409)
         .json({ error: "メールアドレスは既に登録しています" });
     }
+    console.log("3");
 
     const hash = await bcrypt.hash(password, 10);
 
