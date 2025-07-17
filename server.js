@@ -184,7 +184,7 @@ app.post("/register", async (req, res) => {
       [email, hash, username]
     );
 
-    const results = await query("SELECT id, email, username, points FROM users WHERE email = ?", [email]);
+    const results = await query("SELECT * FROM users WHERE email = ?", [email]);
     const user = results[0];
 
     const token = jwt.sign(
@@ -196,6 +196,13 @@ app.post("/register", async (req, res) => {
       username: user.username,
       points: user.points
     });
+    console.log({
+    message: "ユーザー登録できました",
+    token: token,
+    username: user.username,
+    points: user.points
+  });
+
 
   } catch (err) {
     console.error("DB error:", err);
