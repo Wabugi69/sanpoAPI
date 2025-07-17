@@ -184,7 +184,14 @@ app.post("/register", async (req, res) => {
       [email, hash, username]
     );
 
-    res.status(201).json({ message: "ユーザー登録できました" });
+    const user = await query("SELECT id, username FROM users WHERE email = ?", [email]);
+
+      res.status(201).json({
+      message: "ユーザー登録できました",
+      token: token,
+      username: user.username,
+      points: user.points
+    });
 
   } catch (err) {
     console.error("DB error:", err);
