@@ -184,26 +184,28 @@ app.post("/register", async (req, res) => {
       [email, hash, username]
     );
 
-    // const results = await query("SELECT * FROM users WHERE email = ?", [email]);
-    const user = users[0];
+    const results = await query("SELECT id, email, username, points FROM users WHERE email = ?", [email]);
+    const user = results[0];
+
 
     const token = jwt.sign(
         {id: user.id, email: user.email}, JWT_KEY
       );
+
+      console.log("User after insert:", user);
+console.log("Generated token:", token);
+console.log("Sending response:", {
+  message: "ユーザー登録できました",
+  token: token,
+  username: user.username,
+  points: user.points
+});
       res.status(201).json({
       message: "ユーザー登録できました",
       token: token,
       username: user.username,
       points: user.points
     });
-    console.log({
-    message: "ユーザー登録できました",
-    token: token,
-    username: user.username,
-    points: user.points
-  });
-    
-  console.log("User after insert:", user);
 
     
 
