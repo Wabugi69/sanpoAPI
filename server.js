@@ -202,6 +202,9 @@ app.post("/register", async (req, res) => {
     username: user.username,
     points: user.points
   });
+  console.log("User after insert:", user);
+
+    
 
 
   } catch (err) {
