@@ -184,8 +184,8 @@ app.post("/register", async (req, res) => {
       [email, hash, username]
     );
 
-    const results = await query("SELECT * FROM users WHERE email = ?", [email]);
-    const user = results[0];
+    // const results = await query("SELECT * FROM users WHERE email = ?", [email]);
+    const user = users[0];
 
     const token = jwt.sign(
         {id: user.id, email: user.email}, JWT_KEY
@@ -202,6 +202,7 @@ app.post("/register", async (req, res) => {
     username: user.username,
     points: user.points
   });
+    
   console.log("User after insert:", user);
 
     
