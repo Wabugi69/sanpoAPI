@@ -169,7 +169,7 @@ app.post("/register", async (req, res) => {
   }
 
   try {
-    const users = await query("SELECT * FROM users WHERE email = ?", [email]);　//メールが既に登録していないのを確認する
+    const users = await query("SELECT * FROM users WHERE email = ?", [email]);//メールが既に登録していないのを確認する
 
     if (users.length > 0) {
       return res
