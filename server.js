@@ -167,9 +167,10 @@ app.post("/register", async (req, res) => {
     .status(400)
     .json({ error: "メールアドレスの形式は正しくありません"});
   }
-  console.log("1");
-
+  
+console.log("bfore try");
   try {
+    console.log("1");
     const users = await query("SELECT * FROM users WHERE email = ?", [email]);//メールが既に登録していないのを確認する
     console.log("2");
 
