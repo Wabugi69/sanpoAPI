@@ -156,7 +156,7 @@ app.post("/register", async (req, res) => {
   if (!email || !password || !username) {
     return res
       .status(400)
-      .json({ error: "メールアドレス、パスワード、ユーザー名が必要です" });
+      .json({ message: "メールアドレス、パスワード、ユーザー名が必要です" });
   }
   
   if (regex.test(email)){
@@ -165,19 +165,16 @@ app.post("/register", async (req, res) => {
     console.log ("Invalid email");
     return res
     .status(400)
-    .json({ error: "メールアドレスの形式は正しくありません"});
+    .json({ message: "メールアドレスの形式は正しくありません"});
   }
   
-console.log("bfore try");
   try {
-    console.log("1");
     const users = await query("SELECT * FROM users WHERE email = ?", [email]);//メールが既に登録していないのを確認する
-    console.log("2");
 
     if (users.length > 0) {
       return res
         .status(409)
-        .json({ error: "メールアドレスは既に登録しています" });
+        .json({ messge: "メールアドレスは既に登録しています" });
     }
     console.log("3");
 
@@ -196,14 +193,6 @@ console.log("bfore try");
         {id: user.id, email: user.email}, JWT_KEY
       );
 
-      console.log("User after insert:", user);
-console.log("Generated token:", token);
-console.log("Sending response:", {
-  message: "ユーザー登録できました",
-  token: token,
-  username: user.username,
-  points: user.points
-});
       res.status(201).json({
       message: "ユーザー登録できました",
       token: token,
